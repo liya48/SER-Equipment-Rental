@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+    <div class="dashboard-header">
+        <h1>Supplier Dashboard</h1>
+
+        <p>
+            Manage your equipment, requests, and supplier profile.
+        </p>
+    </div>
+
+    {% if not supplier.phone %}
+
+    <div class="warning-box">
+        ⚠️ Please add your phone number so customers can contact you.
+
+        <a href="{% url 'supplier_profile' %}">
+            Add Now
+        </a>
+    </div>
+
+    {% endif %}
+
+    <div class="dashboard-grid">
+
+        <a href="{% url 'add_equipment' %}" class="dashboard-card">
+            <h2>➕ Add Equipment</h2>
+
+            <p>
+                Add new equipment for customers to rent.
+            </p>
+        </a>
+
+        <a href="{% url 'my_equipment' %}" class="dashboard-card">
+            <h2>🏗️ My Equipment</h2>
+
+            <p>
+                View and manage your listed equipment.
+            </p>
+        </a>
+
+        <a href="{% url 'rental_requests' %}" class="dashboard-card">
+            <h2>📩 Rental Requests</h2>
+
+            <p>
+                Approve or reject customer rental requests.
+            </p>
+        </a>
+
+        <a href="{% url 'supplier_profile' %}" class="dashboard-card">
+            <h2>👤 My Profile</h2>
+
+            <p>
+                Update company details and contact info.
+            </p>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

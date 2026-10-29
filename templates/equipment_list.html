@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="equipment-page">
+
+    <h1 class="page-title">Available Equipment</h1>
+
+    <form method="GET" class="search-form">
+        <input 
+            type="text" 
+            name="location" 
+            placeholder="Search by location..."
+            value="{{ request.GET.location }}"
+            class="search-input"
+        >
+
+        <button type="submit" class="search-btn">
+            Search
+        </button>
+    </form>
+
+    {% if equipments %}
+
+    <div class="equipment-grid">
+
+        {% for item in equipments %}
+
+        <div class="equipment-card">
+
+            <div class="equipment-info">
+                <h2>{{ item.name }}</h2>
+
+                <p><strong>Type:</strong> {{ item.equipment_type }}</p>
+
+                <p><strong>Location:</strong> {{ item.location }}</p>
+
+                <p class="price">
+                    ₹{{ item.rent_per_day }} / day
+                </p>
+
+                <a href="{% url 'equipment_detail' item.id %}" class="view-btn">
+                    View Details
+                </a>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <p class="no-result">
+        ❌ No 
+        {% if selected_type %}
+            {{ selected_type }}
+        {% else %}
+            equipment
+        {% endif %}
+        available
+
+        {% if request.GET.location %}
+            in {{ request.GET.location }}
+        {% endif %}
+    </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

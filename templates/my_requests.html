@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>My Rental Requests</h1>
+
+{% if requests %}
+
+<table border="1">
+
+<tr>
+    <th>Equipment</th>
+    <th>Status</th>
+</tr>
+
+{% for r in requests %}
+
+<tr>
+
+    <td>
+    <a href="{% url 'equipment_detail' r.equipment.id %}">
+        {{ r.equipment.name }}
+    </a>
+</td>
+
+    <td>
+
+        {% if r.status == "Pending" %}
+            🟡 Pending
+
+        {% elif r.status == "Approved" %}
+            🟢 Approved
+
+        {% elif r.status == "Rejected" %}
+            🔴 Rejected
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No rental requests found.</p>
+
+{% endif %}
+
+{% endblock %}

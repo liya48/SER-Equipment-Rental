@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <h1>My Profile</h1>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>Company Name</label>
+
+            <input
+                type="text"
+                name="company_name"
+                value="{{ supplier.company_name }}"
+                class="form-input"
+            >
+
+            <label>Phone Number</label>
+
+            <input
+                type="text"
+                name="phone"
+                value="{{ supplier.phone }}"
+                class="form-input"
+            >
+
+            <label>Address</label>
+
+            <textarea
+                name="address"
+                class="form-input form-textarea"
+            >{{ supplier.address }}</textarea>
+
+            <button type="submit" class="form-btn">
+                Update Profile
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

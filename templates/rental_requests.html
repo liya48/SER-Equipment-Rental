@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="requests-page">
+
+    <h1 class="requests-title">
+        Rental Requests
+    </h1>
+
+    {% if requests %}
+
+    <div class="requests-table-wrapper">
+
+        <table class="requests-table">
+
+            <tr>
+                <th>Customer</th>
+                <th>Equipment</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            {% for r in requests %}
+
+            <tr>
+
+                <td>{{ r.buyer.username }}</td>
+
+                <td>{{ r.equipment.name }}</td>
+
+                <td>{{ r.start_date }}</td>
+
+                <td>{{ r.end_date }}</td>
+
+                <td>
+
+                    {% if r.status == "Pending" %}
+
+                        <span class="status pending-status">
+                            Pending
+                        </span>
+
+                    {% elif r.status == "Approved" %}
+
+                        <span class="status approved-status">
+                            Approved
+                        </span>
+
+                    {% elif r.status == "Rejected" %}
+
+                        <span class="status rejected-status">
+                            Rejected
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if r.status == "Pending" %}
+
+                        <a href="{% url 'approve_request' r.id %}" class="approve-btn">
+                            Approve
+                        </a>
+
+                        <a href="{% url 'reject_request' r.id %}" class="reject-btn">
+                            Reject
+                        </a>
+
+                    {% elif r.status == "Approved" %}
+
+                        <span class="approved-text">
+                            Approved ✅
+                        </span>
+
+                    {% elif r.status == "Rejected" %}
+
+                        <span class="rejected-text">
+                            Rejected ❌
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <p class="empty-message">
+        No rental requests yet.
+    </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

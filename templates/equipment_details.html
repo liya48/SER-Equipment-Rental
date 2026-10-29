@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="details-page">
+
+    <div class="details-card">
+
+        <h1 class="details-title">
+            {{ equipment.name }}
+        </h1>
+
+        <div class="details-info">
+
+            <p><strong>Type:</strong> {{ equipment.equipment_type }}</p>
+
+            <p><strong>Location:</strong> {{ equipment.location }}</p>
+
+            <p><strong>Supplier:</strong> {{ equipment.supplier.company_name }}</p>
+
+            <p class="details-price">
+                ₹{{ equipment.rent_per_day }} / day
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+
+                {% if equipment.available %}
+                    <span class="available">Available ✅</span>
+                {% else %}
+                    <span class="unavailable">Unavailable ❌</span>
+                {% endif %}
+            </p>
+
+        </div>
+
+        <div class="details-actions">
+
+        {% if user.is_authenticated and not is_supplier %}
+
+            {% if rental_request %}
+
+                {% if rental_request.status == "Pending" %}
+
+                    <button class="pending-btn" disabled>
+                        Pending Approval
+                    </button>
+
+                {% elif rental_request.status == "Approved" %}
+
+                    <div class="approved-box">
+
+                        <p>
+                            ✅ Your request is approved!
+                        </p>
+
+                        {% if equipment.supplier.phone %}
+
+                            <p>
+                                📞 Contact Supplier:
+                                {{ equipment.supplier.phone }}
+                            </p>
+
+                        {% else %}
+
+                            <p class="warning-text">
+                                Supplier has not provided contact details yet.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                {% elif rental_request.status == "Rejected" %}
+
+                    <p class="warning-text">
+                        ❌ Your rental request was declined.
+                    </p>
+
+                    <a href="{% url 'rent_equipment' equipment.id %}" class="rent-btn">
+                        Rent Again
+                    </a>
+
+                {% endif %}
+
+            {% else %}
+
+                {% if equipment.available %}
+
+                    <a href="{% url 'rent_equipment' equipment.id %}" class="rent-btn">
+                        Rent Now
+                    </a>
+
+                {% else %}
+
+                    <p class="warning-text">
+                        Temporarily Unavailable ❌
+                    </p>
+
+                {% endif %}
+
+            {% endif %}
+
+        {% else %}
+
+            <p class="login-text">
+                Please <a href="{% url 'login' %}">login</a> to rent this equipment.
+            </p>
+
+        {% endif %}
+
+        </div>
+
+        <a href="{% url 'equipment_list' %}" class="back-link">
+            ← Back to list
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

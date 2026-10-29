@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="my-equipment-page">
+
+    <div class="page-header">
+        <h1>My Equipment</h1>
+
+        <a href="{% url 'add_equipment' %}" class="add-equipment-btn">
+            ➕ Add Equipment
+        </a>
+    </div>
+
+    {% if equipments %}
+
+    <div class="equipment-grid">
+
+        {% for equipment in equipments %}
+
+        <div class="equipment-card">
+
+            <h2>{{ equipment.name }}</h2>
+
+            <p>
+                <strong>Type:</strong>
+                {{ equipment.equipment_type }}
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                {{ equipment.location }}
+            </p>
+
+            <p class="price">
+                ₹{{ equipment.rent_per_day }} / day
+            </p>
+
+            <div class="equipment-actions">
+
+                <a href="{% url 'edit_equipment' equipment.id %}" class="edit-btn">
+                    Edit
+                </a>
+
+                <a href="{% url 'delete_equipment' equipment.id %}" class="delete-btn">
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <p class="empty-message">
+        No equipment added yet.
+    </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

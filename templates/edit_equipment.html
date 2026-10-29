@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <h1>Edit Equipment</h1>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>Name</label>
+            <input 
+                type="text"
+                name="name"
+                value="{{ equipment.name }}"
+                class="form-input"
+            >
+
+            <label>Equipment Type</label>
+
+            <select name="equipment_type" class="form-input">
+
+                <option value="Crane" {% if equipment.equipment_type == "Crane" %}selected{% endif %}>Crane</option>
+
+                <option value="JCB" {% if equipment.equipment_type == "JCB" %}selected{% endif %}>JCB</option>
+
+                <option value="Generator" {% if equipment.equipment_type == "Generator" %}selected{% endif %}>Generator</option>
+
+                <option value="Scaffolding" {% if equipment.equipment_type == "Scaffolding" %}selected{% endif %}>Scaffolding</option>
+
+                <option value="Road Roller" {% if equipment.equipment_type == "Road Roller" %}selected{% endif %}>Road Roller</option>
+
+                <option value="Dump Truck" {% if equipment.equipment_type == "Dump Truck" %}selected{% endif %}>Dump Truck</option>
+
+                <option value="Concrete Mixer" {% if equipment.equipment_type == "Concrete Mixer" %}selected{% endif %}>Concrete Mixer</option>
+
+                <option value="Manlift" {% if equipment.equipment_type == "Manlift" %}selected{% endif %}>Manlift</option>
+
+                <option value="Telehandler" {% if equipment.equipment_type == "Telehandler" %}selected{% endif %}>Telehandler</option>
+
+                <option value="Piling Machine" {% if equipment.equipment_type == "Piling Machine" %}selected{% endif %}>Piling Machine</option>
+
+            </select>
+
+            <label>Description</label>
+
+            <textarea 
+                name="description"
+                class="form-input form-textarea"
+            >{{ equipment.description }}</textarea>
+
+            <label>Rent per day</label>
+
+            <input 
+                type="number"
+                name="rent_per_day"
+                value="{{ equipment.rent_per_day }}"
+                class="form-input"
+            >
+
+            <label>Location</label>
+
+            <input 
+                type="text"
+                name="location"
+                value="{{ equipment.location }}"
+                class="form-input"
+            >
+
+            <button type="submit" class="form-btn">
+                Update Equipment
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

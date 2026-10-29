@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <h2>Login</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Username</label>
+            <input type="text" name="username" class="auth-input">
+
+            <label>Password</label>
+            <input type="password" name="password" class="auth-input">
+
+            <button type="submit" class="auth-btn">
+                Login
+            </button>
+        </form>
+
+        {% if error %}
+            <p class="auth-error">
+                {{ error }}
+            </p>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

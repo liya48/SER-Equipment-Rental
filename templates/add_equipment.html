@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <h1>Add Equipment</h1>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>Name</label>
+            <input type="text" name="name" class="form-input">
+
+            <label>Equipment Type</label>
+
+            <select name="equipment_type" class="form-input">
+                <option value="Crane">Crane</option>
+                <option value="JCB">JCB</option>
+                <option value="Generator">Generator</option>
+                <option value="Scaffolding">Scaffolding</option>
+                <option value="Road Roller">Road Roller</option>
+                <option value="Dump Truck">Dump Truck</option>
+                <option value="Concrete Mixer">Concrete Mixer</option>
+                <option value="Manlift">Manlift</option>
+                <option value="Telehandler">Telehandler</option>
+                <option value="Piling Machine">Piling Machine</option>
+            </select>
+
+            <label>Description</label>
+            <textarea name="description" class="form-input form-textarea"></textarea>
+
+            <label>Rent per day</label>
+            <input type="number" name="rent_per_day" class="form-input">
+
+            <label>Location</label>
+            <input type="text" name="location" class="form-input">
+
+            <button type="submit" class="form-btn">
+                Add Equipment
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
